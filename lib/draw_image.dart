@@ -1,6 +1,5 @@
 
 
-import 'dart:html';
 import 'dart:math';
 import 'dart:ui' as ui ;
 import 'package:flutter/material.dart';
@@ -87,11 +86,11 @@ class PagerPainter extends CustomPainter{
 
     Coordinate.drawCoordinateSystem(canvas, size);
 
-  //  _drawImage(canvas);
+    _drawImage(canvas);
 
     //_drawRectImage(canvas);
 
-    _drawImageNine(canvas);
+   // _drawImageNine(canvas);
 
   }
 
@@ -125,12 +124,18 @@ class PagerPainter extends CustomPainter{
 
   void _drawImage(Canvas canvas){
     if(image!=null) {
-      //canvas.save();
-      //canvas.scale(0.5,0.5);
-      canvas.drawImage(image, Offset(-image.width.toDouble()/2, -image.height.toDouble()/2), _paint);
-     // canvas.restore();
+      var diameter =min(image.width,image.height).toDouble();
+      canvas.save();
+      canvas.clipRRect(RRect.fromRectAndRadius(
+          Rect.fromCenter(center: Offset(0, 0),
+              width: diameter,
+              height: diameter)
+          , Radius.circular(diameter)));
+      canvas.drawImage(image,
+          Offset(-diameter/2, -diameter / 2),
+          _paint);
+      canvas.restore();
     }
-
   }
 
 
