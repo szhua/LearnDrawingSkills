@@ -18,6 +18,7 @@ Future<ui.Image> loadImageFromAssets(String path ) async{
 
 void main(){
   runApp(MaterialApp(
+
       home: MyApp(),
   )) ;
 }
@@ -62,6 +63,7 @@ class MyState extends State{
                decoration: BoxDecoration(
                  border:Border.all(color: Colors.blue,width: 0.1)
                ),
+
              ),
            ),
          ),
@@ -87,6 +89,8 @@ class PagerPainter extends CustomPainter{
     Coordinate.drawCoordinateSystem(canvas, size);
 
     _drawImage(canvas);
+
+
 
     //_drawRectImage(canvas);
 
