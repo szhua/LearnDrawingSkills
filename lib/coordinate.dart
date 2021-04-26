@@ -1,5 +1,4 @@
 
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class Coordinate{
 
   }
 
-  static void drawTextZero(Canvas canvas ,Size size){
+  static void _drawTextZero(Canvas canvas ,Size size){
     TextPainter textPainter =TextPainter(
         textDirection: TextDirection.ltr,
         text: TextSpan(
@@ -26,7 +25,7 @@ class Coordinate{
     textPainter.paint(canvas, Offset(-textSize.width-2, 2));
   }
 
-  static void drawText(Canvas canvas ,String str ,Offset offset ,{double dx =5 ,double dy =5}){
+  static void _drawText(Canvas canvas ,String str ,Offset offset ,{double dx =5 ,double dy =5}){
      TextPainter textPainter =TextPainter(
        textDirection: TextDirection.ltr,
        text: TextSpan(
@@ -65,8 +64,8 @@ class Coordinate{
       canvas.drawLine(Offset(-size.width/2, -i*gapSize), Offset(size.width/2, -i*gapSize), _paint);
       if(i!=0 && i%2==0){
         var number = (i*5);
-        drawText(canvas, number.toString(), Offset(8, i*gapSize)  ,dx: 8);
-        drawText(canvas, (-number).toString(), Offset(8, -i*gapSize),dx: 8);
+        _drawText(canvas, number.toString(), Offset(8, i*gapSize)  ,dx: 8);
+        _drawText(canvas, (-number).toString(), Offset(8, -i*gapSize),dx: 8);
       }
 
 
@@ -83,12 +82,12 @@ class Coordinate{
 
       if(i!=0 && i%2==0){
         var number = (i*5);
-        drawText(canvas, number.toString(), Offset(i*gapSize,4)  ,dy: 4);
-        drawText(canvas, (-number).toString(), Offset( -i*gapSize,4),dy: 4);
+        _drawText(canvas, number.toString(), Offset(i*gapSize,4)  ,dy: 4);
+        _drawText(canvas, (-number).toString(), Offset( -i*gapSize,4),dy: 4);
       }
     }
 
-    drawTextZero(canvas, size);
+    _drawTextZero(canvas, size);
   }
 
 
