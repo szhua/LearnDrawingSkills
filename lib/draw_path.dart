@@ -4,6 +4,29 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:painter/coordinate.dart';
+///
+///
+/// @defined ValueNotifier (extends from listenable)  当我们valueNotifier的value进行改变的情况下，会回调 markNeedPaint 方法
+/// 这个方法会在 flush paint 中进行 paint 操作， 而 设置了 repaintBoundary = true 确保了 保证 仅仅是 当前层级被重新绘制；'
+///
+/// //嵌套避免进行重新绘制==》内部 repaintBoundary = ture
+/// RepaintBoundary(
+///
+///   child: CustomPaint(
+///
+///     painter:MyCustomPainter(valueNotifier)
+///
+///   )
+///
+/// )
+///
+///
+///
+///
+///
+
+
+
 
 void main() {
   runApp(MaterialApp(home: DrawPathWidget()));
@@ -15,6 +38,8 @@ class DrawPathWidget extends StatefulWidget {
 }
 
 class _DrawPathWidgetState extends State<DrawPathWidget> {
+
+
   ValueNotifier<BezierPoints> valueNotifier =
       ValueNotifier(BezierPoints(Offset.zero, Offset.zero));
 
@@ -66,6 +91,7 @@ class _DrawPathWidgetState extends State<DrawPathWidget> {
         return Container(
           width: 800,
           height: 600,
+          transform: Matrix4.diagonal3Values(300, 300, 1.0),
           child: GestureDetector(
             onLongPressStart: (detail) {
               Offset currentLocation = detail.localPosition -
@@ -139,8 +165,9 @@ class MyPainter extends CustomPainter {
     //_acrTo(canvas);
     //_arcToPoint(canvas);
     //_conicTo(canvas);
-  //  _bezierTo(canvas);
-      _cubicTo(canvas);
+    _bezierTo(canvas);
+   //   _cubicTo(canvas);
+
   }
 
   void _cubicTo(Canvas canvas) {
@@ -184,7 +211,7 @@ class MyPainter extends CustomPainter {
   void _bezierTo(Canvas canvas) {
     Offset offset = valueNotifier.value.offset1;
     final Offset p1 = offset;
-    final Offset p2 = Offset(160, 0);
+    final Offset p2 = valueNotifier.value.point;
     Path path = Path();
     Paint paint = Paint()
       ..color = Colors.purpleAccent
